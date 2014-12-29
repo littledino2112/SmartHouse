@@ -8,9 +8,8 @@ to set up a star network formed by multiple slave HM10 modules.
 bool DEBUG = true;
 void setup()
 {
-	Serial1.begin(9600); // Initialize UART func of the Core for communicating with HM-10 master module
-
-	Spark.function("control", HM10_Control);
+    Serial1.begin(9600); // Initialize UART func of the Core for communicating with HM-10 master module
+    Spark.function("control", HM10_Control);
 
 	// Any set-up needed for the master HM-10?
     // Reset master HM-10 to factory setting so it doesn't connect to slave modules incidentally
@@ -26,6 +25,8 @@ void setup()
     if (DEBUG) {
         delay(5000);
         Serial1.print("AT+CONB4994C715302");
+        delay(1000);
+        Serial1.print("AT+PIO31");
         delay(5000);
         Serial1.print("AT"); // Will disconnect from slave with this command 
     }

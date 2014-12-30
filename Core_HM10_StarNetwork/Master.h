@@ -9,6 +9,7 @@ config(): Self-config the master module: RENEW -> ROLE1 -> IMME1
 String getSlaveResponse():	Get reponses from the connected slave
  */
 
+#include "application.h"
 #ifndef __MASTER_H
 #define __MASTER_H
 
@@ -16,13 +17,15 @@ String getSlaveResponse():	Get reponses from the connected slave
  {
  public:
  	Master();
-
- 	// uint8_t connectSlave(String address);
+ 	// Confiure the Master module, reset it, put it in ROLE1, IMME1 and NOTI1 modes
  	uint8_t config();
- 	// String getSlaveResponse();
+
+ 	uint8_t discoverDevices();
+
+ 	String readResponse();
  public:
  	uint32_t iNumSlave;
- 	String Slave[50]; // store discovered Slave's addresses
+ 	String Slave[10]; // store discovered Slave's addresses
  };
 
  #endif

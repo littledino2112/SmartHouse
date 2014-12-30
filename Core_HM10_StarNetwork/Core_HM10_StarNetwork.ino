@@ -3,33 +3,27 @@ to set up a star network formed by multiple slave HM10 modules.
 
     Written by Hoang Nguyen
 */
-
+#include "Master.h"
 
 bool DEBUG = true;
 void setup()
 {
-    Serial1.begin(9600); // Initialize UART func of the Core for communicating with HM-10 master module
-    Spark.function("control", HM10_Control);
+    Serial1.begin(9600);
+    Master myMaster;
+    myMaster.config();
+    myMaster.discoverDevices();
 
-	// Any set-up needed for the master HM-10?
-    // Reset master HM-10 to factory setting so it doesn't connect to slave modules incidentally
-    Serial1.print("AT+RENEW");
-    delay(2000);    // Wait for 2 secs for the module to stablize
-    Serial1.print("AT+ROLE1");  // Set the module as master, default after factory reset is ROLE0
-    delay(100);
-    Serial1.print("AT+IMME1");  // After restart, the module just sit there waiting for AT+START or AT+CON commands
-    delay(100);
-    Serial1.print("AT+NOTI1");
-    delay(100);
+    // Spark.function("control", HM10_Control);
 
-    if (DEBUG) {
-        delay(5000);
-        Serial1.print("AT+CONB4994C715302");
-        delay(1000);
-        Serial1.print("AT+PIO31");
-        delay(5000);
-        Serial1.print("AT"); // Will disconnect from slave with this command 
-    }
+
+ //    if (DEBUG) {
+ //        delay(5000);
+ //        Serial1.print("AT+CONB4994C715302");
+ //        delay(1000);
+ //        Serial1.print("AT+PIO31");
+ //        delay(5000);
+ //        Serial1.print("AT"); // Will disconnect from slave with this command 
+ //    }
 }
 
 void loop()
